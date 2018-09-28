@@ -4,27 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.css';
 import './App.css';
 import axios from 'axios';
-class Book extends Component {
-  render() {
-    const book = this.props.bookData;
-    const img_path = `${book.volumeInfo['imageLinks']['thumbnail']}`;
-    let description = ('description' in book.volumeInfo) ?  book.volumeInfo['description']:"No description.";
-    let authors =('authors' in book.volumeInfo) ?  book.volumeInfo["authors"][0] : 'not specified';
-    return (
-      <div className="book"> 
-      <h2> {book.volumeInfo['title']} </h2>
-     
-      <h3>Authors: {authors}</h3>
-        <div className="row">
-            <div className="description col-sm-10">{description}</div>
-            <div className="col-sm-2"><img src={img_path} title={book.volumeInfo['title']}  alt={book.volumeInfo['title']}/></div>
-        </div>
-      
-        
-      </div>
-    )
-  }
-}
+import Book from './components/Book';
 class App extends Component {
 constructor() {
   super()
@@ -32,7 +12,7 @@ constructor() {
     isbn_data: '',
     books: [],
     isLoading: false,
-    error: null,
+    error: null
   }
 }
 updateText = (e) =>{
@@ -62,6 +42,9 @@ updateText = (e) =>{
 }
   render() {
     console.log("Books ", this.state.books)
+    if (this.state.books===undefined)
+    return <h2>Change word of searching</h2>
+    
     return (
       <div className="App">
         <header className="App-header">
